@@ -1,0 +1,15 @@
+---
+- hosts: devstack
+  sudo: True
+  gather_facts: False
+  tasks:
+    - name: git
+      apt: pkg=git
+
+
+- hosts: devstack
+  gather_facts: False
+  tasks:
+    - name: checkout devstack
+      git: repo=git://github.com/openstack-dev/devstack.git dest=/home/vagrant/devstack
+
