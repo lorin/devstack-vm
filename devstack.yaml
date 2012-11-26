@@ -9,7 +9,13 @@
 
 - hosts: devstack
   gather_facts: False
+  vars:
+    branch: stable/folsom
   tasks:
     - name: checkout devstack
       git: repo=git://github.com/openstack-dev/devstack.git dest=/home/vagrant/devstack
+
+    - name: localrc
+      template: src=templates/localrc dest=/home/vagrant/devstack/localrc
+
 

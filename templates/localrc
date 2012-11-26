@@ -9,22 +9,20 @@ PUBLIC_INTERFACE=eth1
 HOST_IP=192.168.27.100
 FLOATING_RANGE=192.168.27.128/28
 
-BRANCH=stable/folsom
-
 # compute service
-NOVA_BRANCH=$BRANCH
+NOVA_BRANCH={{ branch }}
 
 # volume service
-CINDER_BRANCH=$BRANCH
+CINDER_BRANCH={{ branch }}
 
 # image catalog service
-GLANCE_BRANCH=$BRANCH
+GLANCE_BRANCH={{ branch }}
 
 # unified auth system (manages accounts/tokens)
-KEYSTONE_BRANCH=$BRANCH
+KEYSTONE_BRANCH={{ branch }}
 
 # quantum service
-QUANTUM_BRANCH=$BRANCH
+QUANTUM_BRANCH={{ branch }}
 
 # django powered web control panel for openstack
-HORIZON_BRANCH=$BRANCH
+HORIZON_BRANCH={{ branch }}
