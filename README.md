@@ -32,8 +32,20 @@ installed, just do:
     vagrant up
 
 
-## Start devstack
+## ssh in and set up devstack
 
     vagrant ssh
-    cd devstack
+    cd ~/devstack
     ./stack.sh
+
+## nova credentials
+
+When lgoged into the instance, to run as the demo user:
+
+    cd ~/devstack
+    source openrc
+
+To run as the admin user:
+
+    cd ~/devstack
+    source openrc admin
