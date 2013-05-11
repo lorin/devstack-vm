@@ -4,7 +4,7 @@
 This project was inspired by Brian Waldon's [vagrant_devstack][1] repository.
 
 It sets up a virtual machine suitable for running devstack. It's configured
-for Ubuntu 12.04 (precise) to run the stable/folsom branch.
+for Ubuntu 12.04 (precise) to run the stable/grizzly branch.
 
 ## Prereqs
 

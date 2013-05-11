@@ -26,3 +26,14 @@ QUANTUM_BRANCH={{ branch }}
 
 # django powered web control panel for openstack
 HORIZON_BRANCH={{ branch }}
+
+
+# Enable quantum
+# https://wiki.openstack.org/wiki/QuantumDevstack
+disable_service n-net
+enable_service q-svc
+enable_service q-agt
+enable_service q-dhcp
+enable_service q-l3
+enable_service q-meta
+enable_service quantum
