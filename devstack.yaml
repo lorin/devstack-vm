@@ -3,12 +3,26 @@
   gather_facts: False
   vars:
     devstack_repo: git://github.com/openstack-dev/devstack.git
+    floodlight_repo: git://github.com/floodlight/floodlight.git
     branch: stable/grizzly
     devstack_branch: "{{ branch }}"
+    floodlight_src_dir: /home/vagrant/floodlight-master
+
   tasks:
-    - name: git
-      apt: pkg=git
+    - name: packages
+      apt: pkg={{ item }} update_cache=yes
       sudo: True
+      with_items:
+        - git
+        - zip
+        - default-jdk
+        - ant
+
+    - name: checkout floodlight
+      git: repo={{ floodlight_repo }} dest={{ floodlight_src_dir }} version=fl-last-passed-build
+
+    - name: build floodlight
+      command: ant chdir={{ floodlight_src_dir }} creates={{ floodlight_src_dir }}/target/floodlight.jar
 
     - name: checkout devstack
       git: repo={{ devstack_repo }} dest=/home/vagrant/devstack version={{ devstack_branch }}

@@ -32,8 +32,27 @@ HORIZON_BRANCH={{ branch }}
 # https://wiki.openstack.org/wiki/QuantumDevstack
 disable_service n-net
 enable_service q-svc
-enable_service q-agt
 enable_service q-dhcp
-enable_service q-l3
 enable_service q-meta
 enable_service quantum
+
+
+#
+# BigSwitch Floodlight plugin
+#
+
+
+# This needs to be here so that devstack will execute
+# lib/quantum_thirdparty/bigswitch_floodlight
+# This has the code that creates the initial bridge
+enable_service bigswitch_floodlight
+
+# Configure quantum to use the Floodlight plugin
+Q_PLUGIN=bigswitch_floodlight
+
+
+# Specify location of the BigSwitch Floodlight controller
+# http://docs.projectfloodlight.org/display/floodlightcontroller/Install+Floodlight+and+OpenStack+on+Your+Own+Ubuntu+VM
+BS_FL_CONTROLLERS_PORT=127.0.0.1:8080
+
+
