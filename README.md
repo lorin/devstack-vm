@@ -34,6 +34,13 @@ installed, just do:
 
 ## ssh in and set up devstack
 
+In one termianl:
+
+    vagrant ssh
+    cd ~/floodlight
+    java -jar target/floodlight.jar -cf src/main/resources/quantum.properties
+
+In another terminal
     vagrant ssh
     cd ~/devstack
     ./stack.sh

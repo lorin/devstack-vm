@@ -6,7 +6,7 @@
     floodlight_repo: git://github.com/floodlight/floodlight.git
     branch: stable/grizzly
     devstack_branch: "{{ branch }}"
-    floodlight_src_dir: /home/vagrant/floodlight-master
+    floodlight_src_dir: /home/vagrant/floodlight
 
   tasks:
     - name: packages
