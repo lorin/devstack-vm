@@ -34,13 +34,14 @@ installed, just do:
 
 ## ssh in and set up devstack
 
-In one termianl:
+In one terminal:
 
     vagrant ssh
-    cd ~/floodlight
+    cd ~/floodlight-master
     java -jar target/floodlight.jar -cf src/main/resources/quantum.properties
 
-In another terminal
+In another terminal:
+
     vagrant ssh
     cd ~/devstack
     ./stack.sh
@@ -56,3 +57,7 @@ To run as the admin user:
 
     cd ~/devstack
     source openrc admin
+
+
+See <http://docs.projectfloodlight.org/display/floodlightcontroller/Verify+OpenStack+and+Floodlight+Installation> 
+for more details.

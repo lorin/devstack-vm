@@ -1,0 +1,22 @@
+disable_service n-net
+enable_service q-svc
+enable_service q-dhcp
+enable_service quantum
+enable_service bigswitch_floodlight
+Q_PLUGIN=bigswitch_floodlight
+Q_USE_NAMESPACE=False
+NOVA_USE_QUANTUM_API=v2
+SCHEDULER=nova.scheduler.simple.SimpleScheduler
+MYSQL_PASSWORD=password
+RABBIT_PASSWORD=password
+ADMIN_PASSWORD=password
+SERVICE_PASSWORD=password
+SERVICE_TOKEN=tokentoken
+DEST=/opt/stack
+SCREEN_LOGDIR=$DEST/logs/screen
+SYSLOG=True
+#IP:Port for the BSN controller
+#if more than one, separate with commas
+BS_FL_CONTROLLERS_PORT=localhost:8080
+BS_FL_CONTROLLER_TIMEOUT=10
+HOST_IP_IFACE=eth1
