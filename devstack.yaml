@@ -18,5 +18,3 @@
 
     - name: source openrc
       lineinfile: dest=/home/vagrant/.profile regexp=".*openrc" line='. /home/vagrant/devstack/openrc'
-
-
