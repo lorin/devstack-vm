@@ -7,7 +7,6 @@
     external_network: eth2
     floating_range: 192.168.50.0/24
     floating_allocation_pool: "start=192.168.50.10,end=192.168.50.50"
-    fully_automated: True
 
   tasks:
     - name: install packages
@@ -24,28 +23,3 @@
 
     - name: source openrc in profile
       lineinfile: dest=/home/vagrant/.profile regexp=".*openrc" line='. /home/vagrant/devstack/openrc'
-
-    - name: run devstack
-      shell: cd devstack; ./stack.sh
-      when: fully_automated
-
-    - name: Add external network interface to br-ex
-      command: ovs-vsctl add-port br-ex {{ external_network }}
-      sudo: True
-      when: fully_automated
-
-    - name: Remove IP address from external network interface
-      command: ip addr flush dev {{ external_network }}
-      sudo: True
-      when: fully_automated
-
-    - name: set external interface up
-      command: ip link set dev {{ external_network }} up
-      sudo: True
-      when: fully_automated
-
-    - name: set external interface to promiscuous mode
-      command: ip link set dev {{ external_network }} promisc on
-      sudo: True
-      when: fully_automated
-
