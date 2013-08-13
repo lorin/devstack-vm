@@ -22,8 +22,8 @@ You need to have the following installed to use this:
 [3]: http://ansibleworks.com
 [4]: http://devstack.org
 
-You also need the Ubuntu raring 64 box installed. If you have vagrant
-installed, just do:
+You also need the Ubuntu 13.04 (raring) 64-bit vagrant box installed. If you
+have vagrant installed, download this box by doing:
 
     vagrant box add raring64 http://cloud-images.ubuntu.com/raring/current/raring-server-cloudimg-vagrant-amd64-disk1.box
 
