@@ -9,7 +9,7 @@ SERVICE_TOKEN=password
 SCREEN_LOGDIR=/opt/stack/logs
 
 
-HOST_IP=192.168.27.100
+HOST_IP={{ public_ip }}
 
 #
 # Neutron configs
