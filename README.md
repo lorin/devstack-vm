@@ -29,19 +29,23 @@ have vagrant installed, download this box by doing:
 
 ## Getting DevStack up and running
 
-### Boot the instance
+### Boot the Vagrant virtual machine
 
     git clone https://github.com/lorin/devstack-vm
     cd devstack-vm
     vagrant up
 
-### ssh in and install devstack
+### Log in to the virtual machine and install devstack
 
     vagrant ssh
     cd ~/devstack
     ./stack.sh
 
-### configure the external bridge
+### Configure the external bridge
+
+If you want to be able to ssh to OpenStack instances from your host, you
+need to connect the virtual machine's eth2 interface to the br-ex bridge,
+and configure it for promiscuous mode.
 
     sudo ip link set dev eth2 up
     sudo ip link set dev eth2 promisc on
