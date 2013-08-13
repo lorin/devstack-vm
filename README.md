@@ -5,11 +5,9 @@ This project was inspired by Brian Waldon's [vagrant_devstack][1] repository.
 This repository contains a Vagrantfile and an accompanying Ansible playbook
 that sets up a VirtualBox VM that works with [DevStack][4].
 
-It's configured
-for Ubuntu 13.04 (raring) to run the master branch.
-
-It configures OpenStack with Neutron (OpenStack Networking) with support
-for floating IPs, which can be reached from the host operating system.
+The accompanying `localrc` file configures OpenStack with Neutron (OpenStack
+Networking) with support for floating IPs, which can be reached from the host
+operating system.
 
 ## Prereqs
 
