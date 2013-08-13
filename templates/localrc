@@ -1,39 +1,33 @@
-ADMIN_PASSWORD=devstack
-MYSQL_PASSWORD=devstack
-RABBIT_PASSWORD=devstack
-SERVICE_PASSWORD=devstack
-SERVICE_TOKEN=devstack
+# Default passwords
+ADMIN_PASSWORD=password
+MYSQL_PASSWORD=password
+RABBIT_PASSWORD=password
+SERVICE_PASSWORD=password
+SERVICE_TOKEN=password
 
-FLAT_INTERFACE=eth1
-PUBLIC_INTERFACE=eth1
+
+SCREEN_LOGDIR=/opt/stack/logs
+
+
 HOST_IP=192.168.27.100
-FLOATING_RANGE=192.168.27.128/28
 
-# compute service
-NOVA_BRANCH={{ branch }}
-
-# volume service
-CINDER_BRANCH={{ branch }}
-
-# image catalog service
-GLANCE_BRANCH={{ branch }}
-
-# unified auth system (manages accounts/tokens)
-KEYSTONE_BRANCH={{ branch }}
-
-# quantum service
-QUANTUM_BRANCH={{ branch }}
-
-# django powered web control panel for openstack
-HORIZON_BRANCH={{ branch }}
-
-
-# Enable quantum
-# https://wiki.openstack.org/wiki/QuantumDevstack
+#
+# Quantum
+#
+# https://wiki.openstack.org/wiki/NeutronDevstack
 disable_service n-net
 enable_service q-svc
 enable_service q-agt
 enable_service q-dhcp
 enable_service q-l3
 enable_service q-meta
-enable_service quantum
+enable_service neutron
+
+
+PUBLIC_NETWORK_GATEWAY={{ public_gateway }}
+Q_FLOATING_ALLOCATION_POOL={{ floating_allocation_pool }}
+FLOATING_RANGE={{ floating_range }}
+
+# No security groups
+Q_USE_SECGROUP=False
+LIBVIRT_FIREWALL_DRIVER=nova.virt.firewall.NoopFirewallDriver
