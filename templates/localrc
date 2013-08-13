@@ -12,7 +12,7 @@ SCREEN_LOGDIR=/opt/stack/logs
 HOST_IP=192.168.27.100
 
 #
-# Quantum
+# Neutron configs
 #
 # https://wiki.openstack.org/wiki/NeutronDevstack
 disable_service n-net
@@ -28,6 +28,6 @@ PUBLIC_NETWORK_GATEWAY={{ public_gateway }}
 Q_FLOATING_ALLOCATION_POOL={{ floating_allocation_pool }}
 FLOATING_RANGE={{ floating_range }}
 
-# No security groups
+# Disable security groups entirely
 Q_USE_SECGROUP=False
 LIBVIRT_FIREWALL_DRIVER=nova.virt.firewall.NoopFirewallDriver
