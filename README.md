@@ -36,13 +36,7 @@ have vagrant installed, download a raring box:
     vagrant up
 
 
-## Accessing credentials
-
-You can make calls against the OpenStack endpoint from either inside of the
-instance or from the host.
-
-
-### Loading credentials
+## Loading OpenStack credentials
 
 From your local machine, to run as the demo user:
 
@@ -51,6 +45,12 @@ From your local machine, to run as the demo user:
 To run as the admin user:
 
     source admin.openrc
+
+## Horizon
+
+* URL: http://192.168.27.100
+* Username: admin or demo
+* Password: password
 
 
 ## Networking configuration
