@@ -16,9 +16,9 @@ Install the following packages on your local machine first:
  * [VirtualBox][5]
  * [Vagrant][2]
  * [Ansible][3]
- 
+
 If you want to play with the OpenStack command-line tools, install the following Python packages:
- 
+
   * python-novaclient
   * python-neutronclient
 
@@ -32,7 +32,7 @@ If you want to play with the OpenStack command-line tools, install the following
 
 ## Boot the virtual machine and install DevStack
 
-Grab this repo and do a `vagrant up`, lke so: 
+Grab this repo and do a `vagrant up`, lke so:
 
     git clone https://github.com/lorin/devstack-vm
     cd devstack-vm
@@ -45,7 +45,22 @@ The `vagrant up` command will:
  3. Clone the DevStack git repository inside of the VM.
  4. Run DevStack inside of the VM.
  5. Add eth2 to the br-ex bridge inside of the VM to enable floating IP access from the host machine.
- 
+
+
+You may ocassionally see the following error message:
+
+```
+[default] Waiting for VM to boot. This can take a few minutes.
+[default] Failed to connect to VM!
+Failed to connect to VM via SSH. Please verify the VM successfully booted
+by looking at the VirtualBox GUI.
+```
+
+If you see this, retry by doing:
+
+    vagrant destroy --force && vagrant up
+
+
 ## Logging in the virtual machine
 
 The VM is accessible at 192.168.27.100.
@@ -53,9 +68,13 @@ The VM is accessible at 192.168.27.100.
 You can use ssh to access it using `vagrant` as username and password, or use the
 provided `id_vagrant` private key to avoid typing a password.
 
-You can also type `vagrant ssh` to start an ssh session. 
+You can also type `vagrant ssh` to start an ssh session.
 
 Note that you do not need to be logged in to the VM to run commands against the OpenStack endpoint.
+
+
+
+
 
 
 ## Loading OpenStack credentials
