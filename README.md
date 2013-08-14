@@ -11,16 +11,20 @@ This project was inspired by Brian Waldon's [vagrant_devstack][1] repository.
 
 ## Prereqs
 
-Install the following packages on your local machine first:
+Install the following applications on your local machine first:
 
  * [VirtualBox][5]
  * [Vagrant][2]
  * [Ansible][3]
 
-If you want to play with the OpenStack command-line tools, install the following Python packages:
+If you want to try out the OpenStack command-line tools once DevStack is running, install the following Python packages:
 
   * python-novaclient
   * python-neutronclient
+
+The easiest way to install the Python packages is with pip:
+
+    sudo pip install python-novaclient python-neutronclient
 
 
 [1]: https://github.com/bcwaldon/vagrant_devstack
@@ -40,11 +44,13 @@ Grab this repo and do a `vagrant up`, lke so:
 
 The `vagrant up` command will:
 
- 1. Download an Ubuntu 13.04 (raring) vagrant box if it isn't on your machine.
+ 1. Download an Ubuntu 13.04 (raring) vagrant box if it hasn't previously been downloaded to your machine.
  2. Boot the virtual machine (VM).
  3. Clone the DevStack git repository inside of the VM.
  4. Run DevStack inside of the VM.
  5. Add eth2 to the br-ex bridge inside of the VM to enable floating IP access from the host machine.
+
+It will take at least ten minutes for this to run, and possibly much longer depending on your internet connection and whether it needs to download the Ubuntu vagrant box.
 
 
 You may ocassionally see the following error message:
@@ -63,7 +69,7 @@ If you see this, retry by doing:
 
 ## Logging in the virtual machine
 
-The VM is accessible at 192.168.27.100.
+The VM is accessible at 192.168.27.100
 
 You can use ssh to access it using `vagrant` as username and password, or use the
 provided `id_vagrant` private key to avoid typing a password.
