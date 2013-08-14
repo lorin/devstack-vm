@@ -11,8 +11,9 @@ operating system.
 
 ## Prereqs
 
-You need to have the following installed to use this:
+Install the following packages first:
 
+ * [VirtualBox][5]
  * [Vagrant][2]
  * [Ansible][3]
 
@@ -21,35 +22,19 @@ You need to have the following installed to use this:
 [2]: http://vagrantup.com
 [3]: http://ansibleworks.com
 [4]: http://devstack.org
+[5]: http://virtualbox.org
 
-You also need the Ubuntu 13.04 (raring) 64-bit vagrant box installed. If you
-have vagrant installed, download this box by doing:
+You also need the Ubuntu 13.04 (raring) 64-bit vagrant box installed. Once you
+have vagrant installed, download a raring box:
 
     vagrant box add raring64 http://cloud-images.ubuntu.com/raring/current/raring-server-cloudimg-vagrant-amd64-disk1.box
 
-## Getting DevStack up and running
-
-### Boot the Vagrant virtual machine
+## Boot the virtual machine and install DevStack
 
     git clone https://github.com/lorin/devstack-vm
     cd devstack-vm
     vagrant up
 
-### Log in to the virtual machine and install devstack
-
-    vagrant ssh
-    cd ~/devstack
-    ./stack.sh
-
-### Configure the external bridge
-
-If you want to be able to ssh to OpenStack instances from your host, you
-need to connect the virtual machine's eth2 interface to the br-ex bridge,
-and configure it for promiscuous mode.
-
-    sudo ip link set dev eth2 up
-    sudo ip link set dev eth2 promisc on
-    sudo ovs-vsctl add-port br-ex eth2
 
 ## Accessing credentials
 
@@ -57,7 +42,7 @@ You can make calls against the OpenStack endpoint from either inside of the
 instance or from the host.
 
 
-### Loading credentials on your local machine
+### Loading credentials
 
 From your local machine, to run as the demo user:
 
@@ -66,20 +51,6 @@ From your local machine, to run as the demo user:
 To run as the admin user:
 
     source admin.openrc
-
-These are configured for the admin tenant.
-
-### Inside the instance
-
-When logged into the instance, to run as the demo user:
-
-    cd ~/devstack
-    source openrc
-
-To run as the admin user:
-
-    cd ~/devstack
-    source openrc admin
 
 
 ## Networking configuration
@@ -102,13 +73,13 @@ DevStack configures an internal network ("private") and an external network ("pu
 First, configure the local router so it is connected to the public network.
 Only the admin account has permissions to set the gateway on the router to the public network:
 
-    source admin.openrc 
+    source admin.openrc
     neutron router-gateway-set router1 public
 
 
 Next, switch back to the "demo" user and boot an instance
 
-	source demo.openrc 
+	source demo.openrc
     nova boot --flavor m1.nano --image cirros-0.3.1-x86_64-uec cirros
 
 Once the instance has booted, get its ID.
@@ -134,7 +105,7 @@ Use the instance ID to get its neutron port :
 
 Use the neutron port ID to create an attach a floating IP to the "public"" network:
 
-    neutron floatingip-create --port-id 02491b08-919e-4582-9eb7-f8119c03b8f9 public
+    neutron floatingip-create public --port-id 02491b08-919e-4582-9eb7-f8119c03b8f9
 
     Created a new floatingip:
     +---------------------+--------------------------------------+

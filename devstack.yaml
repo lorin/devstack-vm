@@ -19,3 +19,8 @@
 
     - name: source openrc in profile
       lineinfile: dest=/home/vagrant/.profile regexp=".*openrc" line='. /home/vagrant/devstack/openrc'
+
+    - name: enable eth2
+      command: ip link set dev eth2 up
+      sudo: True
+
