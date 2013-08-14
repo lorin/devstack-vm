@@ -59,7 +59,13 @@ instance or from the host.
 
 ### Loading credentials on your local machine
 
-    source openrc
+From your local machine, to run as the demo user:
+
+    source demo.openrc
+
+To run as the admin user:
+
+    source admin.openrc
 
 These are configured for the admin tenant.
 
@@ -81,7 +87,7 @@ To run as the admin user:
 DevStack configures an internal network ("private") and an external network ("public"):
 
 
-    quantum net-list
+    neutron net-list
 
     +--------------------------------------+---------+------------------------------------------------------+
     | id                                   | name    | subnets                                              |
@@ -94,12 +100,15 @@ DevStack configures an internal network ("private") and an external network ("pu
 ## Launch a cirros instance and attach a floating IP.
 
 First, configure the local router so it is connected to the public network.
+Only the admin account has permissions to set the gateway on the router to the public network:
 
+    source admin.openrc 
     neutron router-gateway-set router1 public
 
 
-Next, boot an instance
+Next, switch back to the "demo" user and boot an instance
 
+	source demo.openrc 
     nova boot --flavor m1.nano --image cirros-0.3.1-x86_64-uec cirros
 
 Once the instance has booted, get its ID.
@@ -123,7 +132,7 @@ Use the instance ID to get its neutron port :
     +--------------------------------------+
 
 
-Use the neutron port ID to create an attach a floating IP to the public network:
+Use the neutron port ID to create an attach a floating IP to the "public"" network:
 
     neutron floatingip-create --port-id 02491b08-919e-4582-9eb7-f8119c03b8f9 public
 
