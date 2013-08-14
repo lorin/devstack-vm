@@ -1,21 +1,26 @@
 # Neutron-enabled DevStack in a Vagrant VM with Ansible
 
-This project was inspired by Brian Waldon's [vagrant_devstack][1] repository.
-
 This repository contains a Vagrantfile and an accompanying Ansible playbook
 that sets up a VirtualBox VM that installs [DevStack][4].
 
-The accompanying `localrc` file configures OpenStack with Neutron (OpenStack
-Networking) with support for floating IPs, which can be reached from the host
-operating system. It also has security groups disabled.
+The accompanying `localrc` file configures OpenStack to use Neutron (OpenStack
+Networking). It also disables security groups.
+
+This project was inspired by Brian Waldon's [vagrant_devstack][1] repository.
+
 
 ## Prereqs
 
-Install the following packages first:
+Install the following packages on your local machine first:
 
  * [VirtualBox][5]
  * [Vagrant][2]
  * [Ansible][3]
+ 
+If you want to play with the OpenStack command-line tools, install the following Python packages:
+ 
+  * python-novaclient
+  * python-neutronclient
 
 
 [1]: https://github.com/bcwaldon/vagrant_devstack
@@ -24,16 +29,33 @@ Install the following packages first:
 [4]: http://devstack.org
 [5]: http://virtualbox.org
 
-You also need the Ubuntu 13.04 (raring) 64-bit vagrant box installed. Once you
-have vagrant installed, download a raring box:
-
-    vagrant box add raring64 http://cloud-images.ubuntu.com/raring/current/raring-server-cloudimg-vagrant-amd64-disk1.box
 
 ## Boot the virtual machine and install DevStack
+
+Grab this repo and do a `vagrant up`, lke so: 
 
     git clone https://github.com/lorin/devstack-vm
     cd devstack-vm
     vagrant up
+
+The `vagrant up` command will:
+
+ 1. Download an Ubuntu 13.04 (raring) vagrant box if it isn't on your machine.
+ 2. Boot the virtual machine (VM).
+ 3. Clone the DevStack git repository inside of the VM.
+ 4. Run DevStack inside of the VM.
+ 5. Add eth2 to the br-ex bridge inside of the VM to enable floating IP access from the host machine.
+ 
+## Logging in the virtual machine
+
+The VM is accessible at 192.168.27.100.
+
+You can use ssh to access it using `vagrant` as username and password, or use the
+provided `id_vagrant` private key to avoid typing a password.
+
+You can also type `vagrant ssh` to start an ssh session. 
+
+Note that you do not need to be logged in to the VM to run commands against the OpenStack endpoint.
 
 
 ## Loading OpenStack credentials
