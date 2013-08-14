@@ -23,11 +23,6 @@ enable_service q-l3
 enable_service q-meta
 enable_service neutron
 
-
-PUBLIC_NETWORK_GATEWAY={{ public_gateway }}
-Q_FLOATING_ALLOCATION_POOL={{ floating_allocation_pool }}
-FLOATING_RANGE={{ floating_range }}
-
 # Disable security groups entirely
 Q_USE_SECGROUP=False
 LIBVIRT_FIREWALL_DRIVER=nova.virt.firewall.NoopFirewallDriver

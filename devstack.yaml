@@ -3,10 +3,6 @@
   vars:
     devstack_repo: git://github.com/openstack-dev/devstack.git
     public_ip: 192.168.27.100
-    public_gateway: 192.168.50.2
-    external_network: eth2
-    floating_range: 192.168.50.0/24
-    floating_allocation_pool: "start=192.168.50.10,end=192.168.50.50"
 
   tasks:
     - name: install packages
