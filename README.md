@@ -124,10 +124,11 @@ Only the admin account has permissions to set the gateway on the router to the p
     neutron router-gateway-set router1 public
 
 
-Next, switch back to the "demo" user and boot an instance
+Next, switch back to the "demo" user and boot an instance.
 
-	source demo.openrc
-    nova boot --flavor m1.nano --image cirros-0.3.1-x86_64-uec cirros
+    source demo.openrc
+    nova keypair-add --pub-key ~/.ssh/id_rsa.pub mykey
+    nova boot --flavor m1.nano --image cirros-0.3.1-x86_64-uec --key-name mykey cirros
 
 Once the instance has booted, get its ID.
 
