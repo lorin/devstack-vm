@@ -1,7 +1,7 @@
 # Neutron-enabled DevStack in a Vagrant VM with Ansible
 
 This repository contains a Vagrantfile and an accompanying Ansible playbook
-that sets up a VirtualBox VM that installs [DevStack][4].
+that sets up a VirtualBox virtual machine that installs [DevStack][4].
 
 The accompanying `localrc` file configures OpenStack to use Neutron (OpenStack
 Networking). It also disables security groups.
