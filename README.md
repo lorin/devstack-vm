@@ -81,8 +81,6 @@ Note that you do not need to be logged in to the VM to run commands against the 
 
 
 
-
-
 ## Loading OpenStack credentials
 
 From your local machine, to run as the demo user:
@@ -100,9 +98,12 @@ To run as the admin user:
 * Password: password
 
 
-## Networking configuration
+## Initial networking configuration
 
-DevStack configures an internal network ("private") and an external network ("public"):
+![Network topology](topology.png)
+
+
+DevStack configures an internal network ("private") and an external network ("public"), with a router ("router1") connecting the two together. The router is configured to use its interface on the "public" network as the gateway.
 
 
     neutron net-list
@@ -114,17 +115,18 @@ DevStack configures an internal network ("private") and an external network ("pu
     | 5770a693-cfc7-431d-ae29-76f36a2e63c0 | public  | fcc4c031-27a2-46f5-a238-38ddb7160c7e 192.168.50.0/24 |
     +--------------------------------------+---------+------------------------------------------------------+
 
+    $ neutron router-list
+    +--------------------------------------+---------+-----------------------------------------------------------------------------+
+    | id                                   | name    | external_gateway_info                                                       |
+    +--------------------------------------+---------+-----------------------------------------------------------------------------+
+    | a6628dda-1db1-49f7-9ae8-aedaee381596 | router1 | {"network_id": "07048c67-a7fe-40cb-a059-dcc554a6212f", "enable_snat": true} |
+    +--------------------------------------+---------+-----------------------------------------------------------------------------+
+
+
 
 ## Launch a cirros instance and attach a floating IP.
 
-First, configure the local router so it is connected to the public network.
-Only the admin account has permissions to set the gateway on the router to the public network:
-
-    source admin.openrc
-    neutron router-gateway-set router1 public
-
-
-Next, switch back to the "demo" user and boot an instance.
+Source the credentials of the "demo" user and boot an instance.
 
     source demo.openrc
     nova keypair-add --pub-key ~/.ssh/id_rsa.pub mykey
@@ -171,4 +173,10 @@ Use the neutron port ID to create an attach a floating IP to the "public"" netwo
 Finally, access your instance:
 
     ssh cirros@192.168.50.11
+
+
+## Python bindings example
+
+The included `boot-cirros.py` file illustrates how to executes all of the
+above commands using the Python bindings.
 
