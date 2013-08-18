@@ -10,44 +10,29 @@ This script does the following
 
 
 '''
+import socket
 import os.path
+import sys
 import time
 
 from novaclient.v1_1 import client as novaclient
 from neutronclient.v2_0 import client as neutronclient
 
 auth_url = "http://192.168.27.100:35357/v2.0"
+username = "demo"
 password = "password"
 tenant_name = "demo"
 
-neutron_admin = neutronclient.Client(auth_url=auth_url,
-                                     username="admin",
-                                     password=password,
-                                     tenant_name=tenant_name)
-neutron_demo = neutronclient.Client(auth_url=auth_url,
-                                    username="demo",
+neutron = neutronclient.Client(auth_url=auth_url,
+                                    username=username,
                                     password=password,
                                     tenant_name=tenant_name)
 
 nova = novaclient.Client(auth_url=auth_url,
-                         username="demo",
+                         username=username,
                          api_key=password,
                          project_id=tenant_name)
 
-
-
-print "Adding public gateway to router...",
-# There should only be one router, named 'router1'
-router, = [x for x in neutron_admin.list_routers()['routers']
-                   if x['name'] == 'router1']
-
-# Similiarly, there should be one external network
-ext_net, = [x for x in neutron_admin.list_networks()['networks']
-                    if x['router:external']]
-
-neutron_admin.add_gateway_router(router['id'], {'network_id': ext_net['id'],
-                                                'enable_snat': True})
-print "done"
 
 print "Creating keypair: mykey...",
 if not nova.keypairs.findall(name="mykey"):
@@ -72,14 +57,40 @@ print "done"
 
 
 print "Creating floating ip...",
+# Get external network
+ext_net, = [x for x in neutron.list_networks()['networks']
+                    if x['router:external']]
+
 # Get the port corresponding to the instance
-port, = [x for x in neutron_demo.list_ports()['ports']
+port, = [x for x in neutron.list_ports()['ports']
                  if x['device_id'] == instance.id]
 
 # Create the floating ip
 args = dict(floating_network_id=ext_net['id'],
             port_id=port['id'])
-ip = neutron_demo.create_floatingip(body={'floatingip': args})
+ip_obj = neutron.create_floatingip(body={'floatingip': args})
 print "done"
 
-print "IP:", ip['floatingip']['floating_ip_address']
+ip = ip_obj['floatingip']['floating_ip_address']
+print "IP:", ip
+
+print "Waiting for ssh to be ready on cirros instance...",
+for i in range(60):
+    try:
+        seconds_to_wait = 1
+        ssh_port = 22
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.settimeout(seconds_to_wait)
+        s.connect((ip, ssh_port))
+    except socket.timeout:
+        pass
+    else:
+        print "done"
+        break
+else:
+    print "ssh server never came up!"
+    sys.exit(1)
+
+
+
+
