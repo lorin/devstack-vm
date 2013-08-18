@@ -162,7 +162,7 @@ Use the neutron port ID to create an attach a floating IP to the "public"" netwo
     | Field               | Value                                |
     +---------------------+--------------------------------------+
     | fixed_ip_address    | 10.0.0.3                             |
-    | floating_ip_address | 192.168.50.11                        |
+    | floating_ip_address | 172.24.4.227                         |
     | floating_network_id | 5770a693-cfc7-431d-ae29-76f36a2e63c0 |
     | id                  | 480524e1-a5b3-491f-a6ee-9356fc52f81d |
     | port_id             | 02491b08-919e-4582-9eb7-f8119c03b8f9 |
@@ -172,7 +172,7 @@ Use the neutron port ID to create an attach a floating IP to the "public"" netwo
 
 Finally, access your instance:
 
-    ssh cirros@192.168.50.11
+    ssh cirros@172.24.4.227
 
 
 ## Python bindings example
