@@ -36,10 +36,12 @@ The easiest way to install the Python packages is with pip:
 
 ## Boot the virtual machine and install DevStack
 
-Grab this repo and do a `vagrant up`, lke so:
+Grab this repo, set the permissions on the vagrant ssh key, and do a `vagrant
+up`, like so:
 
     git clone https://github.com/lorin/devstack-vm
     cd devstack-vm
+    chmod 0600 id_vagrant
     vagrant up
 
 The `vagrant up` command will:
