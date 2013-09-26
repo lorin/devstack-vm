@@ -1,5 +1,5 @@
 ---
-- hosts: devstack
+- hosts: default
   vars:
     devstack_repo: git://github.com/openstack-dev/devstack.git
     public_ip: 192.168.27.100

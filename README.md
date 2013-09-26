@@ -14,7 +14,7 @@ This project was inspired by Brian Waldon's [vagrant_devstack][1] repository.
 Install the following applications on your local machine first:
 
  * [VirtualBox][5]
- * [Vagrant][2]
+ * [Vagrant][2] 1.3.3 or greater
  * [Ansible][3]
 
 If you want to try out the OpenStack command-line tools once DevStack is running, install the following Python packages:
