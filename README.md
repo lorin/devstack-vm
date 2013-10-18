@@ -54,6 +54,20 @@ The `vagrant up` command will:
 
 It will take at least ten minutes for this to run, and possibly much longer depending on your internet connection and whether it needs to download the Ubuntu vagrant box.
 
+## Allow VMs to connect to the internet
+
+By default, VMs started by OpenStack will not be able to connect to the
+internet. If you want your VMs to connect out, configure your Vagrant VM to do
+network address translation (NAT) for the OpenStack virtual machine instances.
+
+Issue the following commands inside of the Vagrant VM, as root:
+
+```
+echo 1 > /proc/sys/net/ipv4/ip_forward
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+```
+
+
 ## Troubleshooting
 
 ### Authentication or permission failure
