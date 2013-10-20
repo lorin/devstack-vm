@@ -11,8 +11,9 @@ SCREEN_LOGDIR=/opt/stack/logs
 
 HOST_IP={{ public_ip }}
 
+{% if neutron %}
 #
-# Neutron configs
+# Enable Neutron
 #
 # https://wiki.openstack.org/wiki/NeutronDevstack
 disable_service n-net
@@ -22,7 +23,19 @@ enable_service q-dhcp
 enable_service q-l3
 enable_service q-meta
 enable_service neutron
+{% endif %}
 
+{% if swift %}
+# Enable Swift
+enable_service s-proxy
+enable_service s-object
+enable_service s-container
+enable_service s-account
+{% endif %}
+
+
+{% if not security_groups %}
 # Disable security groups entirely
 Q_USE_SECGROUP=False
 LIBVIRT_FIREWALL_DRIVER=nova.virt.firewall.NoopFirewallDriver
+{% endif %}
