@@ -18,7 +18,7 @@
       git: "repo={{ devstack_repo }} dest=/home/vagrant/devstack"
 
     - name: localrc
-      template: src=templates/localrc dest=/home/vagrant/devstack/localrc
+      template: src=templates/localrc.j2 dest=/home/vagrant/devstack/localrc
 
     - name: source openrc in profile
       lineinfile: dest=/home/vagrant/.profile regexp=".*openrc" line='. /home/vagrant/devstack/openrc'
