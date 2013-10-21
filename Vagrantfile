@@ -1,4 +1,9 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+
 Vagrant.configure("2") do |config|
+
     config.vm.box = "raring64"
     config.vm.box_url = "http://cloud-images.ubuntu.com/raring/current/raring-server-cloudimg-vagrant-amd64-disk1.box"
     # eth1, this will be the endpoint
@@ -11,7 +16,9 @@ Vagrant.configure("2") do |config|
        	vb.customize ["modifyvm", :id, "--nicpromisc3", "allow-all"]
     end
     config.vm.provision :ansible do |ansible|
+        ansible.host_key_checking = false
         ansible.playbook = "devstack.yaml"
+        ansible.verbose = "vvvvvv"
     end
     config.vm.provision :shell, :inline => "cd devstack; sudo -u vagrant env HOME=/home/vagrant ./stack.sh"
     config.vm.provision :shell, :inline => "ovs-vsctl add-port br-ex eth2"

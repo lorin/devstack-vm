@@ -15,7 +15,7 @@
        - git
 
     - name: checkout devstack
-      git: "repo={{ devstack_repo }} dest=/home/vagrant/devstack"
+      git: "repo={{ devstack_repo }} dest=/home/vagrant/devstack version=stable/havana"
 
     - name: localrc
       template: src=templates/localrc.j2 dest=/home/vagrant/devstack/localrc
