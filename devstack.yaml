@@ -3,6 +3,7 @@
   vars:
     devstack_repo: git://github.com/openstack-dev/devstack.git
     public_ip: 192.168.27.100
+    version: stable/havana
     neutron: True
     swift: True
     security_groups: False
@@ -15,7 +16,7 @@
        - git
 
     - name: checkout devstack
-      git: "repo={{ devstack_repo }} dest=/home/vagrant/devstack version=stable/havana"
+      git: "repo={{ devstack_repo }} dest=/home/vagrant/devstack version={{ version }}"
 
     - name: localrc
       template: src=templates/localrc.j2 dest=/home/vagrant/devstack/localrc
