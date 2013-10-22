@@ -4,8 +4,8 @@
 
 Vagrant.configure("2") do |config|
 
-    config.vm.box = "raring64"
-    config.vm.box_url = "http://cloud-images.ubuntu.com/raring/current/raring-server-cloudimg-vagrant-amd64-disk1.box"
+    config.vm.box = "saucy64"
+    config.vm.box_url = "http://cloud-images.ubuntu.com/vagrant/saucy/current/saucy-server-cloudimg-amd64-vagrant-disk1.box"
     # eth1, this will be the endpoint
     config.vm.network :private_network, ip: "192.168.27.100"
     # eth2, this will be the OpenStack "public" network, use DevStack default
