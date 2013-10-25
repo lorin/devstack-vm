@@ -9,11 +9,14 @@
     security_groups: False
 
   tasks:
-    - name: install packages
-      apt: "pkg={{ item }} update_cache=yes"
+    - name: install git
+      apt: "name=git update_cache=yes"
       sudo: True
-      with_items:
-       - git
+
+
+    - name: "Ensure ubuntu python-keyring absent to workaround https://bugs.launchpad.net/bugs/1242992"
+      apt: name=python-keyring state=absent
+      sudo: True
 
     - name: checkout devstack
       git: "repo={{ devstack_repo }} dest=/home/vagrant/devstack version={{ version }}"
