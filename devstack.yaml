@@ -24,12 +24,11 @@
       apt: "name=git update_cache=yes"
       sudo: True
 
-
     - name: checkout devstack
       git: "repo={{ devstack_repo }} dest=/home/vagrant/devstack version={{ version }}"
 
-    - name: localrc
-      template: src=templates/localrc.j2 dest=/home/vagrant/devstack/localrc
+    - name: local.conf
+      template: src=templates/local.conf.j2 dest=/home/vagrant/devstack/local.conf
 
     - name: source openrc in profile
       lineinfile: dest=/home/vagrant/.profile regexp=".*openrc" line='. /home/vagrant/devstack/openrc'
