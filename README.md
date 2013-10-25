@@ -3,13 +3,23 @@
 This repository contains a Vagrantfile and an accompanying Ansible playbook
 that sets up a VirtualBox virtual machine that installs [DevStack][4].
 
-The accompanying `localrc` file configures OpenStack to use Neutron (OpenStack
-Networking). It also disables security groups.
+Ansible generates a `localrc` file that defaults to:
+ * Use Neutron for networking
+ * Install Swift for object storage
+ * Disable security groups
+
 
 This project was inspired by Brian Waldon's [vagrant_devstack][1] repository.
 
+## Memory usage
+
+By default, the VM uses 4GB of RAM. If you want to change this, edit the
+following line in Vagrantfile:
+
+        vb.customize ["modifyvm", :id, "--memory", 4096]
 
 ## Prereqs
+
 
 Install the following applications on your local machine first:
 
