@@ -10,6 +10,9 @@ This script does the following
 
 
 '''
+from __future__ import print_function
+
+
 import socket
 import os.path
 import sys
@@ -17,6 +20,7 @@ import time
 
 from novaclient.v1_1 import client as novaclient
 from neutronclient.v2_0 import client as neutronclient
+
 
 auth_url = "http://192.168.27.100:35357/v2.0"
 username = "demo"
@@ -34,13 +38,13 @@ nova = novaclient.Client(auth_url=auth_url,
                          project_id=tenant_name)
 
 
-print "Creating keypair: mykey...",
+print("Creating keypair: mykey...")
 if not nova.keypairs.findall(name="mykey"):
     with open(os.path.expanduser('~/.ssh/id_rsa.pub')) as fpubkey:
         nova.keypairs.create(name="mykey", public_key=fpubkey.read())
-print "done"
+print("done")
 
-print "Booting cirros instance...",
+print("Booting cirros instance...", end='')
 image = nova.images.find(name="cirros-0.3.1-x86_64-uec")
 flavor = nova.flavors.find(name="m1.nano")
 instance = nova.servers.create(name="cirros", image=image, flavor=flavor,
@@ -53,10 +57,10 @@ while status == 'BUILD':
     # Retrieve the instance again so the status field updates
     instance = nova.servers.get(instance.id)
     status = instance.status
-print "done"
+print("done")
 
 
-print "Creating floating ip...",
+print("Creating floating ip...", end='')
 # Get external network
 ext_net, = [x for x in neutron.list_networks()['networks']
                     if x['router:external']]
@@ -69,12 +73,12 @@ port, = [x for x in neutron.list_ports()['ports']
 args = dict(floating_network_id=ext_net['id'],
             port_id=port['id'])
 ip_obj = neutron.create_floatingip(body={'floatingip': args})
-print "done"
+print("done")
 
 ip = ip_obj['floatingip']['floating_ip_address']
-print "IP:", ip
+print("IP:{}".format(ip))
 
-print "Waiting for ssh to be ready on cirros instance...",
+print("Waiting for ssh to be ready on cirros instance...", end='')
 for i in range(60):
     try:
         seconds_to_wait = 1
@@ -84,11 +88,13 @@ for i in range(60):
         s.connect((ip, ssh_port))
     except socket.timeout:
         pass
+    except socket.error:
+        pass
     else:
-        print "done"
+        print("done")
         break
 else:
-    print "ssh server never came up!"
+    print("ssh server never came up!")
     sys.exit(1)
 
 
