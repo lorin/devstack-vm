@@ -1,5 +1,5 @@
 export OS_USERNAME="admin"
 export OS_PASSWORD="password"
 export OS_TENANT_NAME="demo"
-export OS_AUTH_URL="http://192.168.27.100:35357/v2.0"
+export OS_AUTH_URL="http://192.168.27.100:5000/v2.0"
 export OS_REGION_NAME=""
