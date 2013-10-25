@@ -56,7 +56,7 @@ up`, like so:
 
 The `vagrant up` command will:
 
- 1. Download an Ubuntu 13.04 (raring) vagrant box if it hasn't previously been downloaded to your machine.
+ 1. Download an Ubuntu 13.10 (saucy) vagrant box if it hasn't previously been downloaded to your machine.
  2. Boot the virtual machine (VM).
  3. Clone the DevStack git repository inside of the VM.
  4. Run DevStack inside of the VM.
