@@ -7,16 +7,23 @@
     neutron: True
     swift: True
     security_groups: False
+    keyring_config_dir: /home/vagrant/.local/share/python_keyring
 
   tasks:
+    - name: create keyring config directory
+      file: >
+        state=directory
+        dest={{ keyring_config_dir }}
+
+    - name: copy keyring config file to workaround https://bugs.launchpad.net/bugs/1242992
+      copy: >
+        src=files/keyringrc.cfg
+        dest={{ keyring_config_dir }}/keyringrc.cfg
+
     - name: install git
       apt: "name=git update_cache=yes"
       sudo: True
 
-
-    - name: "Ensure ubuntu python-keyring absent to workaround https://bugs.launchpad.net/bugs/1242992"
-      apt: name=python-keyring state=absent
-      sudo: True
 
     - name: checkout devstack
       git: "repo={{ devstack_repo }} dest=/home/vagrant/devstack version={{ version }}"
