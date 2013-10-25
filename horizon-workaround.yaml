@@ -1,0 +1,20 @@
+---
+- name: workaround for https://bugs.launchpad.net/devstack/+bug/1243075
+  hosts: default
+  gather_facts: False
+
+  tasks:
+    - name: add missing line to horizon.conf
+      lineinfile: >
+        dest=/etc/apache2/sites-enabled/horizon.conf
+        line="        Require all granted"
+        insertafter="<Directory />"
+        regexp="Require all granted"
+      sudo: True
+      notify:
+        - restart apache
+
+  handlers:
+  - name: restart apache
+    service: name=apache2 state=restarted
+    sudo: True
