@@ -18,7 +18,7 @@ Vagrant.configure("2") do |config|
     config.vm.provision :ansible do |ansible|
         ansible.host_key_checking = false
         ansible.playbook = "devstack.yaml"
-        ansible.verbose = "vvvvvv"
+        ansible.verbose = "v"
     end
     config.vm.provision :shell, :inline => "cd devstack; sudo -u vagrant env HOME=/home/vagrant ./stack.sh"
     config.vm.provision :shell, :inline => "ovs-vsctl add-port br-ex eth2"
@@ -27,6 +27,6 @@ Vagrant.configure("2") do |config|
     config.vm.provision :ansible do |ansible|
         ansible.host_key_checking = false
         ansible.playbook = "horizon-workaround.yaml"
-        ansible.verbose = "vvvvvv"
+        ansible.verbose = "v"
     end
 end
