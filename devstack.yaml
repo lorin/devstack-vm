@@ -7,6 +7,7 @@
     neutron: True
     swift: True
     security_groups: False
+    tempest: False
     keyring_config_dir: /home/vagrant/.local/share/python_keyring
 
   tasks:

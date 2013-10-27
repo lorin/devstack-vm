@@ -40,3 +40,7 @@ enable_service s-account
 Q_USE_SECGROUP=False
 LIBVIRT_FIREWALL_DRIVER=nova.virt.firewall.NoopFirewallDriver
 {% endif %}
+
+{% if not tempest %}
+disable_service tempest
+{% endif %}
