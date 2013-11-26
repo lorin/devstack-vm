@@ -12,9 +12,9 @@ This script does the following
 '''
 from __future__ import print_function
 
-
-import socket
+import datetime
 import os.path
+import socket
 import sys
 import time
 
@@ -38,8 +38,8 @@ nova = novaclient.Client(auth_url=auth_url,
                          project_id=tenant_name)
 
 
-print("Creating keypair: mykey...")
 if not nova.keypairs.findall(name="mykey"):
+    print("Creating keypair: mykey...")
     with open(os.path.expanduser('~/.ssh/id_rsa.pub')) as fpubkey:
         nova.keypairs.create(name="mykey", public_key=fpubkey.read())
 print("done")
@@ -79,24 +79,24 @@ ip = ip_obj['floatingip']['floating_ip_address']
 print("IP:{}".format(ip))
 
 print("Waiting for ssh to be ready on cirros instance...", end='')
-for i in range(60):
+start = datetime.datetime.now()
+timeout = 120
+end = start + datetime.timedelta(seconds=timeout)
+port = 22
+connect_timeout = 5
+# From utilities/wait_for of ansible
+while datetime.datetime.now() < end:
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.settimeout(connect_timeout)
     try:
-        seconds_to_wait = 1
-        ssh_port = 22
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.settimeout(seconds_to_wait)
-        s.connect((ip, ssh_port))
-    except socket.timeout:
-        pass
-    except socket.error:
-        pass
-    else:
-        print("done")
+        s.connect((ip, port))
+        s.shutdown(socket.SHUT_RDWR)
+        s.close()
+        print()
         break
+    except:
+        time.sleep(1)
+        pass
 else:
     print("ssh server never came up!")
     sys.exit(1)
-
-
-
-
