@@ -173,7 +173,7 @@ Source the credentials of the "demo" user and boot an instance.
 
     source demo.openrc
     nova keypair-add --pub-key ~/.ssh/id_rsa.pub mykey
-    nova boot --flavor m1.nano --image cirros-0.3.1-x86_64-uec --key-name mykey cirros
+    nova boot --flavor m1.tiny --image cirros-0.3.2-x86_64-uec --key-name mykey cirros
 
 Once the instance has booted, get its ID.
 

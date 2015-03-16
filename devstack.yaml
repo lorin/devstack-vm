@@ -3,7 +3,7 @@
   vars:
     devstack_repo: git://github.com/openstack-dev/devstack.git
     public_ip: 192.168.27.100
-    version: stable/havana
+    version: stable/icehouse
     neutron: True
     swift: True
     security_groups: False
