@@ -208,8 +208,7 @@ Note that you have to do this each time you reboot.
 
 #### Edit the pfctl config file to NAT the floating IP subnet
 
-Edit /etc/pf.conf as root, and add the following line (substituting `vboxnet20`
-for the right vboxnet interface on your machine) after the "net-anchor" line:
+Edit `/etc/pf.conf` as root, and add the following line after the "net-anchor" line:
 
     nat on en0 from 172.24.4.1/24 -> (en0)
 
