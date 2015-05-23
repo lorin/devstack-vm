@@ -81,18 +81,6 @@ iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 
 ## Troubleshooting
 
-### Authentication or permission failure
-
-If you see an error like this:
-
-```
-devstack | FAILED => Authentication or permission failure. In some cases, you may have been able to authenticate and did not have permissions on the remote directory
-```
-
-Then you may have incorrect file permissions in the id_vagrant file. Make sure it is only readable by the owner, by doing:
-
-    chmod 0600 id_vagrant
-
 ### Fails to connect
 
 You may ocassionally see the following error message:
