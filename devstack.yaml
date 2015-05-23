@@ -26,7 +26,7 @@
       sudo: True
 
     - name: checkout devstack
-      git: "repo={{ devstack_repo }} dest=/home/vagrant/devstack version={{ version }}"
+      git: repo={{ devstack_repo }} dest=/home/vagrant/devstack version={{ version }} accept_hostkey=yes
 
     - name: local.conf
       template: src=templates/local.conf.j2 dest=/home/vagrant/devstack/local.conf
