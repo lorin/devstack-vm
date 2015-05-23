@@ -52,7 +52,6 @@ up`, like so:
 
     git clone https://github.com/lorin/devstack-vm
     cd devstack-vm
-    chmod 0600 id_vagrant
     vagrant up
 
 The `vagrant up` command will:
