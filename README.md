@@ -206,35 +206,17 @@ Turn on IP forwarding if it isn't on yet:
 
 Note that you have to do this each time you reboot.
 
-### Identify the right vboxnet interface
-
-VirtualBox creates a logical network interface for each host-only network it
-creates. You need to find the one that corresponds to eth2 on the Vagrant
-machine, which is on subnet 172.24.4.1/24. You can get a list of logical
-interfaces with the ifconfig command:
-
-    ifconfig
-
-On my machine, it's vboxnet20.
-
-    vboxnet20: flags=8843<UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST> mtu 1500
-        ether 0a:00:27:00:00:14
-        inet 172.24.4.1 netmask 0xffffff00 broadcast 172.24.4.255
-
-Note how the inet is 172.24.24.1 and the netmask in hex is 0xffffff00, which is
-/24
-
-### Edit the pfctl config file
+### Edit the pfctl config file to NAT the floating IP subnet
 
 Edit /etc/pf.conf as root, and add the following line (substituting `vboxnet20`
 for the right vboxnet interface on your machine) after the "net-anchor" line:
 
-    nat on en0 from vboxnet20:network -> (en0)
+    nat on en0 from 172.24.4.1/24 -> (en0)
 
 ### Load the file and enable PF
 
     sudo pfctl -f /etc/pf.conf
-    sudo pftcl -e
+    sudo pfctl -e
 
 (From [Martin Nash's blog][6]. See info there on how to make the IP forwarding
 persist across reboots ).
@@ -254,4 +236,4 @@ iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 [3]: http://ansibleworks.com
 [4]: http://devstack.org
 [5]: http://virtualbox.org
-[6]: http://blog.nasmart.me/about-nasmart/
+[6]: http://blog.nasmart.me/internet-access-with-virtualbox-host-only-networks-on-os-x-mavericks/
