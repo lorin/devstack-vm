@@ -196,9 +196,9 @@ By default, VMs started by OpenStack will not be able to connect to the
 internet. For this to work, your host machine must be configured to do NAT
 (Network Address Translation) for the VMs.
 
-## On Mac OS X
+### On Mac OS X
 
-### Enable IP forwarding
+#### Enable IP forwarding
 
 Turn on IP forwarding if it isn't on yet:
 
@@ -206,14 +206,14 @@ Turn on IP forwarding if it isn't on yet:
 
 Note that you have to do this each time you reboot.
 
-### Edit the pfctl config file to NAT the floating IP subnet
+#### Edit the pfctl config file to NAT the floating IP subnet
 
 Edit /etc/pf.conf as root, and add the following line (substituting `vboxnet20`
 for the right vboxnet interface on your machine) after the "net-anchor" line:
 
     nat on en0 from 172.24.4.1/24 -> (en0)
 
-### Load the file and enable PF
+#### Load the file and enable PF
 
     sudo pfctl -f /etc/pf.conf
     sudo pfctl -e
@@ -222,7 +222,7 @@ for the right vboxnet interface on your machine) after the "net-anchor" line:
 persist across reboots ).
 
 
-## On Linux
+### On Linux
 
 To enable NAT, issue the following commands in your host, as root:
 
