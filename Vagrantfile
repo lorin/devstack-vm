@@ -16,7 +16,7 @@ Vagrant.configure("2") do |config|
     end
     config.vm.provision :ansible do |ansible|
         ansible.host_key_checking = false
-        ansible.playbook = "devstack.yaml"
+        ansible.playbook = "devstack.yml"
         ansible.verbose = "v"
     end
     config.vm.provision :shell, :inline => "cd devstack; sudo -u vagrant env HOME=/home/vagrant ./stack.sh"

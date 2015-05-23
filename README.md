@@ -6,8 +6,9 @@ that sets up a VirtualBox virtual machine that installs [DevStack][4].
 Ansible generates a `local.conf` file that defaults to:
 
  * Use Neutron for networking
- * Install Swift for object storage
  * Disable security groups
+
+You can enable Swift and security groups by editing the devstack.yml file.
 
 
 This project was inspired by Brian Waldon's [vagrant_devstack][1] repository.
