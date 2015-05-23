@@ -3,13 +3,15 @@
 This repository contains a Vagrantfile and an accompanying Ansible playbook
 that sets up a VirtualBox virtual machine that installs [DevStack][4].
 
+You'll also be able to ssh directly from your laptop into the VMs without
+needing to the ssh into the Vagrant box first.
+
 Ansible generates a `local.conf` file that defaults to:
 
  * Use Neutron for networking
  * Disable security groups
 
 You can enable Swift and security groups by editing the devstack.yml file.
-
 
 This project was inspired by Brian Waldon's [vagrant_devstack][1] repository.
 
@@ -29,21 +31,16 @@ Install the following applications on your local machine first:
  * [Vagrant][2] 1.3.3 or greater
  * [Ansible][3]
 
-If you want to try out the OpenStack command-line tools once DevStack is running, install the following Python packages:
+If you want to try out the OpenStack command-line tools once DevStack is
+running, you'll also need to install the following Python packages:
 
   * python-novaclient
   * python-neutronclient
 
-The easiest way to install the Python packages is with pip:
+The easiest way to install Ansible and the Python packages are with pip:
 
-    sudo pip install python-novaclient python-neutronclient
+    sudo pip install -r requirements.txt
 
-
-[1]: https://github.com/bcwaldon/vagrant_devstack
-[2]: http://vagrantup.com
-[3]: http://ansibleworks.com
-[4]: http://devstack.org
-[5]: http://virtualbox.org
 
 
 ## Boot the virtual machine and install DevStack
@@ -65,19 +62,6 @@ The `vagrant up` command will:
 
 It will take at least ten minutes for this to run, and possibly much longer depending on your internet connection and whether it needs to download the Ubuntu vagrant box.
 
-## Allow VMs to connect to the internet (Linux hosts only)
-
-By default, VMs started by OpenStack will not be able to connect to the
-internet. If you want your VMs to connect out, and you are running Linux
-as your host operating system, you must configure your host machine to do
-network address translation (NAT).
-
-To enable NAT, issue the following commands in your host, as root:
-
-```
-echo 1 > /proc/sys/net/ipv4/ip_forward
-iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
-```
 
 
 ## Troubleshooting
@@ -102,14 +86,9 @@ If you see this, retry by doing:
 
 The VM is accessible at 192.168.27.100
 
-You can use ssh to access it using `vagrant` as username and password, or use the
-provided `id_vagrant` private key to avoid typing a password.
-
-You can also type `vagrant ssh` to start an ssh session.
+You can type `vagrant ssh` to start an ssh session.
 
 Note that you do not need to be logged in to the VM to run commands against the OpenStack endpoint.
-
-
 
 
 ## Loading OpenStack credentials
@@ -211,3 +190,68 @@ Finally, access your instance:
 The included `boot-cirros.py` file illustrates how to execute all of the
 above commands using the Python bindings.
 
+## Allow VMs to connect out to the Internet
+
+By default, VMs started by OpenStack will not be able to connect to the
+internet. For this to work, your host machine must be configured to do NAT
+(Network Address Translation) for the VMs.
+
+## On Mac OS X
+
+### Enable IP forwarding
+
+Turn on IP forwarding if it isn't on yet:
+
+    sudo sysctl -w net.inet.ip.forwarding=1
+
+Note that you have to do this each time you reboot.
+
+### Identify the right vboxnet interface
+
+VirtualBox creates a logical network interface for each host-only network it
+creates. You need to find the one that corresponds to eth2 on the Vagrant
+machine, which is on subnet 172.24.4.1/24. You can get a list of logical
+interfaces with the ifconfig command:
+
+    ifconfig
+
+On my machine, it's vboxnet20.
+
+    vboxnet20: flags=8843<UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+        ether 0a:00:27:00:00:14
+        inet 172.24.4.1 netmask 0xffffff00 broadcast 172.24.4.255
+
+Note how the inet is 172.24.24.1 and the netmask in hex is 0xffffff00, which is
+/24
+
+### Edit the pfctl config file
+
+Edit /etc/pf.conf as root, and add the following line (substituting `vboxnet20`
+for the right vboxnet interface on your machine) after the "net-anchor" line:
+
+    nat on en0 from vboxnet20:network -> (en0)
+
+### Load the file and enable PF
+
+    sudo pfctl -f /etc/pf.conf
+    sudo pftcl -e
+
+(From [Martin Nash's blog][6]. See info there on how to make the IP forwarding
+persist across reboots ).
+
+
+## On Linux
+
+To enable NAT, issue the following commands in your host, as root:
+
+```
+echo 1 > /proc/sys/net/ipv4/ip_forward
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+```
+
+[1]: https://github.com/bcwaldon/vagrant_devstack
+[2]: http://vagrantup.com
+[3]: http://ansibleworks.com
+[4]: http://devstack.org
+[5]: http://virtualbox.org
+[6]: http://blog.nasmart.me/about-nasmart/

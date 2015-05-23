@@ -1,3 +1,4 @@
+ansible
 python-novaclient
 python-neutronclient
 python-openstackclient
