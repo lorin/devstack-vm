@@ -144,7 +144,7 @@ Source the credentials of the "demo" user and boot an instance.
 
 Once the instance has booted, get its ID.
 
-    nova list
+    $ nova list
 
     +--------------------------------------+--------+--------+---------------------------------+
     | ID                                   | Name   | Status | Networks                        |
@@ -154,7 +154,7 @@ Once the instance has booted, get its ID.
 
 Use the instance ID to get its neutron port :
 
-    neutron port-list -c id -- --device_id b24fc4ad-2d66-4f28-928b-f1cf78075d33
+    $ neutron port-list -c id -- --device_id b24fc4ad-2d66-4f28-928b-f1cf78075d33
 
     +--------------------------------------+
     | id                                   |
@@ -165,7 +165,7 @@ Use the instance ID to get its neutron port :
 
 Use the neutron port ID to create an attach a floating IP to the "public"" network:
 
-    neutron floatingip-create public --port-id 02491b08-919e-4582-9eb7-f8119c03b8f9
+    $ neutron floatingip-create public --port-id 02491b08-919e-4582-9eb7-f8119c03b8f9
 
     Created a new floatingip:
     +---------------------+--------------------------------------+
