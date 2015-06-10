@@ -28,7 +28,7 @@ following line in Vagrantfile:
 Install the following applications on your local machine first:
 
  * [VirtualBox][5]
- * [Vagrant][2] 1.3.3 or greater
+ * [Vagrant][2]
  * [Ansible][3]
 
 If you want to try out the OpenStack command-line tools once DevStack is
@@ -116,7 +116,7 @@ To run as the admin user:
 DevStack configures an internal network ("private") and an external network ("public"), with a router ("router1") connecting the two together. The router is configured to use its interface on the "public" network as the gateway.
 
 
-    neutron net-list
+    $ neutron net-list
 
     +--------------------------------------+---------+------------------------------------------------------+
     | id                                   | name    | subnets                                              |
