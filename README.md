@@ -154,7 +154,7 @@ Once the instance has booted, get its ID.
 
 Use the instance ID to get its neutron port :
 
-    $ neutron port-list -c id -- --device_id b24fc4ad-2d66-4f28-928b-f1cf78075d33
+    $ neutron port-list -c id --device_id b24fc4ad-2d66-4f28-928b-f1cf78075d33
 
     +--------------------------------------+
     | id                                   |
