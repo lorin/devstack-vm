@@ -18,7 +18,7 @@ import socket
 import sys
 import time
 
-from novaclient.v1_1 import client as novaclient
+from novaclient.v2 import client as novaclient
 from neutronclient.v2_0 import client as neutronclient
 
 
