@@ -45,7 +45,7 @@ if not nova.keypairs.findall(name="mykey"):
 print("done")
 
 print("Booting cirros instance...", end='')
-image = nova.images.find(name="cirros-0.3.2-x86_64-uec")
+image = nova.images.find(name="cirros-0.3.4-x86_64-uec")
 flavor = nova.flavors.find(name="m1.tiny")
 instance = nova.servers.create(name="cirros", image=image, flavor=flavor,
                               key_name="mykey")
