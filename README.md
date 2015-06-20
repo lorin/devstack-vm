@@ -36,12 +36,11 @@ running, you'll also need to install the following Python packages:
 
   * python-novaclient
   * python-neutronclient
+  * python-openstackclient
 
 The easiest way to install Ansible and the Python packages are with pip:
 
     sudo pip install -r requirements.txt
-
-
 
 ## Boot the virtual machine and install DevStack
 
@@ -116,7 +115,7 @@ To run as the admin user:
 DevStack configures an internal network ("private") and an external network ("public"), with a router ("router1") connecting the two together. The router is configured to use its interface on the "public" network as the gateway.
 
 
-    $ neutron net-list
+    $ openstack network list
 
     +--------------------------------------+---------+------------------------------------------------------+
     | id                                   | name    | subnets                                              |
@@ -134,6 +133,12 @@ DevStack configures an internal network ("private") and an external network ("pu
 
 
 
+## Add ssh and ping to the default security group
+
+    openstack security group rule create default --proto tcp --dst-port 22
+    openstack security group rule create default --proto icmp
+
+	
 ## Launch a cirros instance and attach a floating IP.
 
 Source the credentials of the "demo" user and boot an instance.
