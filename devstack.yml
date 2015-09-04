@@ -5,6 +5,7 @@
     public_ip: 192.168.27.100
     version: stable/kilo
     floating_ip_range: 172.24.4.0/24
+    heat: False
     neutron: True
     swift: False
     security_groups: False

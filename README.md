@@ -11,7 +11,7 @@ Ansible generates a `local.conf` file that defaults to:
  * Use Neutron for networking
  * Disable security groups
 
-You can enable Swift and security groups by editing the devstack.yml file.
+You can enable Swift, Heat and security groups by editing the devstack.yml file.
 
 This project was inspired by Brian Waldon's [vagrant_devstack][1] repository.
 
