@@ -17,10 +17,11 @@ This project was inspired by Brian Waldon's [vagrant_devstack][1] repository.
 
 ## Memory usage
 
-By default, the VM uses 4GB of RAM. If you want to change this, edit the
-following line in Vagrantfile:
+By default, the VM uses 4GB of RAM and 2 cpus. If you want to change this, edit the
+following lines in Vagrantfile:
 
         vb.customize ["modifyvm", :id, "--memory", 4096]
+        vb.customize ["modifyvm", :id, "--cpus", 2]
 
 ## Prereqs
 
