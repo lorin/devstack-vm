@@ -36,6 +36,13 @@ enable_service s-container
 enable_service s-account
 {% endif %}
 
+{% if heat %}
+enable_service heat
+enable_service h-api
+enable_service h-api-cfn
+enable_service h-api-cw
+enable_service h-eng
+{% endif %}
 
 {% if not security_groups %}
 # Disable security groups entirely
