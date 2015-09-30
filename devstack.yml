@@ -6,6 +6,7 @@
     version: stable/kilo
     floating_ip_range: 172.24.4.0/24
     neutron: True
+    neutron_lbaasv2: False
     swift: False
     security_groups: False
     tempest: False
