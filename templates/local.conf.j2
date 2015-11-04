@@ -32,8 +32,8 @@ enable_service neutron
 # Enable Neutron LBaas v2
 #
 # https://wiki.openstack.org/wiki/Neutron/LBaaS
-enable_plugin neutron-lbaas https://git.openstack.org/openstack/neutron-lbaas {% version %}
-enable_plugin octavia https://git.openstack.org/openstack/octavia {% version %}
+enable_plugin neutron-lbaas https://git.openstack.org/openstack/neutron-lbaas {{ version }}
+enable_plugin octavia https://git.openstack.org/openstack/octavia {{ version }}
 ENABLED_SERVICES+=,q-lbaasv2
 ENABLED_SERVICES+=,octavia,o-cw,o-hk,o-hm,o-api
 {% endif %}
