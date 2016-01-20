@@ -47,8 +47,7 @@ The easiest way to install Ansible and the Python packages are with pip:
 
 ## Boot the virtual machine and install DevStack
 
-Grab this repo, set the permissions on the vagrant ssh key, and do a `vagrant
-up`, like so:
+Grab this repo and do a `vagrant up`, like so:
 
     git clone https://github.com/lorin/devstack-vm
     cd devstack-vm
