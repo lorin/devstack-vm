@@ -12,6 +12,7 @@
     security_groups: False
     tempest: False
     keyring_config_dir: /home/vagrant/.local/share/python_keyring
+    app_catalog: False
 
   tasks:
     - name: create keyring config directory

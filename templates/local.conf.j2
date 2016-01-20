@@ -65,3 +65,7 @@ LIBVIRT_FIREWALL_DRIVER=nova.virt.firewall.NoopFirewallDriver
 {% if not tempest %}
 disable_service tempest
 {% endif %}
+
+{% if app_catalog %}
+enable_service app_catalog_ui
+{% endif %}
