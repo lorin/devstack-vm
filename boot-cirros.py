@@ -18,7 +18,7 @@ import socket
 import sys
 import time
 
-from novaclient.v2 import client as novaclient
+from novaclient import client as novaclient
 from neutronclient.v2_0 import client as neutronclient
 
 
@@ -26,13 +26,15 @@ auth_url = "http://192.168.27.100:35357/v2.0"
 username = "demo"
 password = "password"
 tenant_name = "demo"
+version = 2
 
 neutron = neutronclient.Client(auth_url=auth_url,
                                     username=username,
                                     password=password,
                                     tenant_name=tenant_name)
 
-nova = novaclient.Client(auth_url=auth_url,
+nova = novaclient.Client(version=version,
+                         auth_url=auth_url,
                          username=username,
                          api_key=password,
                          project_id=tenant_name)
