@@ -239,7 +239,7 @@ iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 
 [1]: https://github.com/bcwaldon/vagrant_devstack
 [2]: http://vagrantup.com
-[3]: http://ansibleworks.com
+[3]: http://ansible.com
 [4]: http://devstack.org
 [5]: http://virtualbox.org
 [6]: http://blog.nasmart.me/internet-access-with-virtualbox-host-only-networks-on-os-x-mavericks/
