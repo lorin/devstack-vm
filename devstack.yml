@@ -3,7 +3,7 @@
   vars:
     devstack_repo: git://github.com/openstack-dev/devstack.git
     public_ip: 192.168.27.100
-    version: stable/kilo
+    version: stable/mitaka
     floating_ip_range: 172.24.4.0/24
     heat: False
     neutron: True
@@ -27,7 +27,7 @@
 
     - name: install git
       apt: "name=git update_cache=yes"
-      sudo: True
+      become: True
 
     - name: checkout devstack
       git: repo={{ devstack_repo }} dest=/home/vagrant/devstack version={{ version }} accept_hostkey=yes
@@ -40,5 +40,5 @@
 
     - name: enable eth2
       command: ip link set dev eth2 up
-      sudo: True
+      become: True
 
