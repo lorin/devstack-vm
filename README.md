@@ -19,10 +19,10 @@ This project was inspired by Brian Waldon's [vagrant_devstack][1] repository.
 
 ## Memory usage
 
-By default, the VM uses 4GB of RAM and 2 cpus. If you want to change this, edit the
+By default, the VM uses 6GB of RAM and 2 cpus. If you want to change this, edit the
 following lines in Vagrantfile:
 
-        vb.customize ["modifyvm", :id, "--memory", 4096]
+        vb.customize ["modifyvm", :id, "--memory", 6144]
         vb.customize ["modifyvm", :id, "--cpus", 2]
 
 ## Prereqs
@@ -158,11 +158,11 @@ Once the instance has booted, get its ID.
 
     $ nova list
 
-    +--------------------------------------+--------+--------+---------------------------------+
-    | ID                                   | Name   | Status | Networks                        |
-    +--------------------------------------+--------+--------+---------------------------------+
-    | b24fc4ad-2d66-4f28-928b-f1cf78075d33 | cirros | ACTIVE | private=10.0.0.3                |
-    +--------------------------------------+--------+--------+---------------------------------+
+    +--------------------------------------+--------+--------+------------+-------------+------------------------------------------------------+
+    | ID                                   | Name   | Status | Task State | Power State | Networks                                             |
+    +--------------------------------------+--------+--------+------------+-------------+------------------------------------------------------+
+    | 62cf0635-aa9e-4223-bbcd-3808966959c1 | cirros | ACTIVE | -          | Running     | private=fdbc:59ac:894:0:f816:3eff:fefe:221, 10.0.0.3 |
+    +--------------------------------------+--------+--------+------------+-------------+------------------------------------------------------+
 
 Use the instance ID to get its neutron port :
 

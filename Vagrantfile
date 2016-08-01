@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
     # ip and subnet mask should match floating_ip_range var in devstack.yml
     config.vm.network :private_network, ip: "172.24.4.225", :netmask => "255.255.255.0", :auto_config => false
     config.vm.provider :virtualbox do |vb|
-        vb.customize ["modifyvm", :id, "--memory", 4096]
+        vb.customize ["modifyvm", :id, "--memory", 6144]
         vb.customize ["modifyvm", :id, "--cpus", 2]
        	# eth2 must be in promiscuous mode for floating IPs to be accessible
        	vb.customize ["modifyvm", :id, "--nicpromisc3", "allow-all"]
