@@ -116,23 +116,28 @@ To run as the admin user:
 
 DevStack configures an internal network ("private") and an external network ("public"), with a router ("router1") connecting the two together. The router is configured to use its interface on the "public" network as the gateway.
 
+```
+$ openstack network list
++--------------------------------------+---------+------------------------------------------------------------------------+
+| ID                                   | Name    | Subnets                                                                |
++--------------------------------------+---------+------------------------------------------------------------------------+
+| 3d910901-12a0-4997-8335-948c66e1ab46 | public  | 1c458c90-3bd3-45b1-a9bf-6ed8cd56e128,                                  |
+|                                      |         | 94f2f87c-c8a4-48e5-a27c-752e7be14988                                   |
+| c83dc6a9-615e-4a42-b462-b5d9871a923f | private | 6e58ab8b-bc1a-4ae8-9233-f2d69a5c1821,                                  |
+|                                      |         | 830a36ce-4bb4-4266-8411-5d4447e8e2e3                                   |
++--------------------------------------+---------+------------------------------------------------------------------------+
 
-    $ openstack network list
-
-    +--------------------------------------+---------+------------------------------------------------------+
-    | id                                   | name    | subnets                                              |
-    +--------------------------------------+---------+------------------------------------------------------+
-    | 07048c67-a7fe-40cb-a059-dcc554a6212f | private | b7733765-e316-4173-9060-e3d16897ec53 10.0.0.0/24     |
-    | 5770a693-cfc7-431d-ae29-76f36a2e63c0 | public  | fcc4c031-27a2-46f5-a238-38ddb7160c7e 192.168.50.0/24 |
-    +--------------------------------------+---------+------------------------------------------------------+
-
-    $ neutron router-list
-    +--------------------------------------+---------+-----------------------------------------------------------------------------+
-    | id                                   | name    | external_gateway_info                                                       |
-    +--------------------------------------+---------+-----------------------------------------------------------------------------+
-    | a6628dda-1db1-49f7-9ae8-aedaee381596 | router1 | {"network_id": "07048c67-a7fe-40cb-a059-dcc554a6212f", "enable_snat": true} |
-    +--------------------------------------+---------+-----------------------------------------------------------------------------+
-
+$ neutron router-list
++--------------------------------------+---------+------------------------------------------------------------------------+
+| id                                   | name    | external_gateway_info                                                  |
++--------------------------------------+---------+------------------------------------------------------------------------+
+| c182627f-2c78-4f0e-aa14-f740aa7a02d3 | router1 | {"network_id": "3d910901-12a0-4997-8335-948c66e1ab46",                 |
+|                                      |         | "external_fixed_ips": [{"ip_address": "172.24.4.2", "subnet_id":       |
+|                                      |         | "1c458c90-3bd3-45b1-a9bf-6ed8cd56e128"}, {"ip_address": "2001:db8::1", |
+|                                      |         | "subnet_id": "94f2f87c-c8a4-48e5-a27c-752e7be14988"}], "enable_snat":  |
+|                                      |         | true}                                                                  |
++--------------------------------------+---------+------------------------------------------------------------------------+
+```
 
 
 ## Add ssh and ping to the default security group
@@ -243,3 +248,29 @@ iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 [4]: http://devstack.org
 [5]: http://virtualbox.org
 [6]: http://blog.nasmart.me/internet-access-with-virtualbox-host-only-networks-on-os-x-mavericks/
+
+## Troubleshooting
+
+Logs are in `/opt/stack/logs`
+
+### Instance immediately goes into error state
+
+Check the nova-conductor log and search for ERROR
+
+```
+vagrant ssh
+less -R /opt/stack/logs/n-cond.log
+```
+
+For example, if it's failing because there isn't enough free memory in the
+virtual machine, you'll see an error like this:
+
+```
+2016-08-01 05:42:50.237 ERROR nova.scheduler.utils [req-581add06-ba33-4b5d-9a1b-af7c74f3ce86 demo demo] [instance: 70713d2f-96fa-4ee7-a73a-4e019b78b1f9] Error from last host: vagrant-ubuntu-trusty-64 (node vagrant-ubuntu-trusty-64): [u'Traceback (most recent call last):\n', u'  File "/opt/stack/nova/nova/compute/manager.py", line 1926, in _do_build_and_run_instance\n    filter_properties)\n', u'  File "/opt/stack/nova/nova/compute/manager.py", line 2116, in _build_and_run_instance\n    instance_uuid=instance.uuid, reason=six.text_type(e))\n', u"RescheduledException: Build of instance 70713d2f-96fa-4ee7-a73a-4e019b78b1f9 was re-scheduled: internal error: process exited while connecting to monitor: Cannot set up guest memory 'pc.ram': Cannot allocate memory\n\n"]
+```
+
+
+
+
+
+
