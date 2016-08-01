@@ -27,7 +27,7 @@
 
     - name: install git
       apt: "name=git update_cache=yes"
-      sudo: True
+      become: True
 
     - name: checkout devstack
       git: repo={{ devstack_repo }} dest=/home/vagrant/devstack version={{ version }} accept_hostkey=yes
@@ -40,5 +40,5 @@
 
     - name: enable eth2
       command: ip link set dev eth2 up
-      sudo: True
+      become: True
 
