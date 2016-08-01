@@ -3,7 +3,7 @@
   vars:
     devstack_repo: git://github.com/openstack-dev/devstack.git
     public_ip: 192.168.27.100
-    version: stable/kilo
+    version: stable/mitaka
     floating_ip_range: 172.24.4.0/24
     heat: False
     neutron: True
